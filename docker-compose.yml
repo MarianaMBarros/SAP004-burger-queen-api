@@ -21,8 +21,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
     container_name: bq-api-node_db
-    ports:
-      - "5432:5432"
+   
     volumes:
       - database:/var/lib/postgresql/data
     networks:

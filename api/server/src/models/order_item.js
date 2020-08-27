@@ -14,8 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   order_item.associate = function (models) {
-
-    order_item.hasMany(models.product)
   };
   return order_item;
 };

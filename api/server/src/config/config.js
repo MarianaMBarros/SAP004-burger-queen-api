@@ -3,7 +3,7 @@ module.exports = {
     "username": "postgres",
     "password": "123456",
     "database": "burguer_queen_api",
-    "host": "192.168.0.113",
+    "host": "localhost",
     "dialect": "postgres",
     "operatorsAliases": false
   },
