@@ -1,18 +1,22 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import authorRoutes from './server/routes/AuthorRoutes';
 
 const app = express();
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
 
-const port = process.eventNames.Port || 3000
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const port = process.env.PORT || 3000;
+
+app.use('/api/authors', authorRoutes);
 
 app.get('*', (req, res) => res.status(200).send({
-  message: 'Hello Word'
-}))
+  message: 'Boas-vindas à API!',
+}));
 
 app.listen(port, () => {
-  console.log(`Server is running on PORT ${port}`)
-})
+  console.log(`Server is running on PORT ${port}`);
+});
 
-export default app
+module.exports = app
