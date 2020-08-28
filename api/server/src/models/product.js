@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     type: DataTypes.STRING,
     price: DataTypes.DECIMAL(10, 2)
-  }, {});
+  }, { freezeTableName: true });
   product.associate = function (models) {
     product.hasMany(models.order_item)
   };

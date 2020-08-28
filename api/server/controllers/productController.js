@@ -1,5 +1,5 @@
 import productService from '../services/productService'
-import Util from '../utils/Utils'
+import Util from '../utils/utils'
 
 const util = new Util()
 
