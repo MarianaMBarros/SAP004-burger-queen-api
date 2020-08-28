@@ -1,7 +1,8 @@
+require("dotenv").config();
 module.exports = {
   "development": {
     "username": "postgres",
-    "password": "123456",
+    "password": null,
     "database": "burguer_queen_api",
     "host": "localhost",
     "dialect": "postgres",
@@ -16,11 +17,14 @@ module.exports = {
     "operatorsAliases": false
   },
   "production": {
-    "username": "postgres",
-    "password": null,
-    "database": "new_store_production",
-    "host": "db",
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
+    "database": process.env.DB_DATABASE,
+    "host": process.env.DB_HOST,
     "dialect": "postgres",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "ssl": true
+    }
   }
 }
