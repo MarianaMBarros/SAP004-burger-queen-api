@@ -1,4 +1,5 @@
 import orderService from '../services/orderService'
+import orderItemService from '../services/orderItemService'
 import Util from '../utils/utils'
 
 const util = new Util()
@@ -20,13 +21,20 @@ class orderController {
   }
 
   static async addOrder(req, res) {
-    if (!req.body.name || !req.body.type || !req.body.price) {
+    if (!req.body.name || !req.body.table || !req.body.amount) {
       util.setError(400, 'Please provide complete details')
       return util.send(res)
     }
     const newOrder = req.body
     try {
-      const createdOrder = await orderService.addOrder(newOrder)
+      const createdOrder = await orderService.addOrder({ name: newOrder.name, table: newOrder.table, amount: newOrder.amount })
+      for (let item of req.body.itens) {
+        await orderItemService.addOrderItem({
+          product_quantity: item.quantity,
+          order_id: createdOrder.id,
+          product_id: item.productId
+        })
+      }
       util.setSuccess(201, 'Order Added!', createdOrder)
       return util.send(res)
     } catch (error) {
