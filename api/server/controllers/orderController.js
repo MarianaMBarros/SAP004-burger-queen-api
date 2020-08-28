@@ -1,16 +1,16 @@
-import productService from '../services/productService'
+import orderService from '../services/orderService'
 import Util from '../utils/utils'
 
 const util = new Util()
 
-class productController {
-  static async getAllProduct(req, res) {
+class orderController {
+  static async getAllOrder(req, res) {
     try {
-      const allProduct = await productService.getAllProduct()
-      if (allProduct.length > 0) {
-        util.setSuccess(200, 'Product retrieved', allProduct)
+      const allOrder = await orderService.getAllOrder()
+      if (allOrder.length > 0) {
+        util.setSuccess(200, 'Order retrieved', allOrder)
       } else {
-        util.setSuccess(200, 'No Product found')
+        util.setSuccess(200, 'No Order found')
       }
       return util.send(res)
     } catch (error) {
@@ -19,15 +19,15 @@ class productController {
     }
   }
 
-  static async addProduct(req, res) {
+  static async addOrder(req, res) {
     if (!req.body.name || !req.body.type || !req.body.price) {
       util.setError(400, 'Please provide complete details')
       return util.send(res)
     }
-    const newProduct = req.body
+    const newOrder = req.body
     try {
-      const createdProduct = await productService.addProduct(newProduct)
-      util.setSuccess(201, 'Product Added!', createdProduct)
+      const createdOrder = await orderService.addOrder(newOrder)
+      util.setSuccess(201, 'Order Added!', createdOrder)
       return util.send(res)
     } catch (error) {
       util.setError(400, error.message)
@@ -35,19 +35,19 @@ class productController {
     }
   }
 
-  static async updatedProduct(req, res) {
-    const alteredProduct = req.body
+  static async updatedOrder(req, res) {
+    const alteredOrder = req.body
     const { id } = req.params
     if (!Number(id)) {
       util.setError(400, 'Please input a valid numeric value')
       return util.send(res)
     }
     try {
-      const updateProduct = await productService.updateProduct(id, alteredProduct)
-      if (!updateProduct) {
-        util.setError(404, `Cannot find Product with the id: ${id}`)
+      const updateOrder = await orderService.updateOrder(id, alteredOrder)
+      if (!updateOrder) {
+        util.setError(404, `Cannot find Order with the id: ${id}`)
       } else {
-        util.setSuccess(200, 'Product updated', updateProduct)
+        util.setSuccess(200, 'Order updated', updateOrder)
       }
       return util.send(res)
     } catch (error) {
@@ -56,7 +56,7 @@ class productController {
     }
   }
 
-  static async getProduct(req, res) {
+  static async getOrder(req, res) {
     const { id } = req.params
 
     if (!Number(id)) {
@@ -65,12 +65,12 @@ class productController {
     }
 
     try {
-      const theProduct = await productService.getProduct(id)
+      const theOrder = await orderService.getOrder(id)
 
-      if (!theProduct) {
-        util.setError(404, `Cannot find Product with the id ${id}`)
+      if (!theOrder) {
+        util.setError(404, `Cannot find Order with the id ${id}`)
       } else {
-        util.setSuccess(200, 'Found Product', theProduct)
+        util.setSuccess(200, 'Found Order', theOrder)
       }
       return util.send(res)
     } catch (error) {
@@ -79,7 +79,7 @@ class productController {
     }
   }
 
-  static async deleteProduct(req, res) {
+  static async deleteOrder(req, res) {
     const { id } = req.params
 
     if (!Number(id)) {
@@ -88,12 +88,12 @@ class productController {
     }
 
     try {
-      const productToDelete = await productService.deleteProduct(id)
+      const OrderToDelete = await orderService.deleteOrder(id)
 
-      if (productToDelete) {
-        util.setSuccess(200, 'Product deleted')
+      if (OrderToDelete) {
+        util.setSuccess(200, 'Order deleted')
       } else {
-        util.setError(404, `Product with the id ${id} cannot be found`)
+        util.setError(404, `Order with the id ${id} cannot be found`)
       }
       return util.send(res)
     } catch (error) {
@@ -103,4 +103,4 @@ class productController {
   }
 }
 
-export default productController
+export default orderController
